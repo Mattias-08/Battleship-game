@@ -44,3 +44,23 @@ def main():
     print("Rules:")
     print("- Players take turns placing their mark (X or O) on the board.")
     print("- The board is represented by letters (A-C) for columns and numbers (1-3) for rows.")
+    
+    while True:
+        display_board(board)
+
+        # Player's turn
+        if current_player == 'X':
+            print(f"Player {current_player}'s turn.")
+            choose_and_update_cell(board, current_player)
+
+        # Computer's turn
+        else:
+            print(f"Player {current_player}'s turn.")
+            row, col = computer_move(board)
+            board[row][col] = current_player
+
+        # Switch player for next turn
+        current_player = 'O' if current_player == 'X' else 'X'
+
+if __name__ == "__main__":
+    main()
