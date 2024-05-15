@@ -26,3 +26,21 @@ def choose_and_update_cell(board, player):
 def is_valid_move(board, row, col):
     """Checks if the specified move is valid (cell is empty)."""
     return board[row][col] == ' '
+
+def computer_move(board):
+    """Generates a random valid move for the computer."""
+    while True:
+        row = random.randint(0, 2)
+        col = random.randint(0, 2)
+        if is_valid_move(board, row, col):
+            return row, col
+
+def main():
+    """Main game loop."""
+    board = [[' ', ' ', ' '] for _ in range(3)]  # Create empty board
+    current_player = 'X'  # Start with player X
+
+    print("Welcome to 3 in a Row!")
+    print("Rules:")
+    print("- Players take turns placing their mark (X or O) on the board.")
+    print("- The board is represented by letters (A-C) for columns and numbers (1-3) for rows.")
