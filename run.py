@@ -1,28 +1,27 @@
 import random
+import colorama
 from colorama import Fore, Back, Style
 
+
 def display_board(board):
-    if board is None:  # Check if board is defined
-        print(f"{Fore.LIGHTBLUE}Game not started yet. Please start the game first.{Style.RESET_ALL}")
-    else:
-        # Print the top border in yellow
-        print(f"{Fore.YELLOW}   | A | B | C ")
-        print(f"{Fore.YELLOW}---+---+---")
+    """Prints the board with row numbers and labels."""
+if board is None:
+    print(f"{Fore.LIGHTBLUE}Game not started yet. Please start the game first.{Style.RESET_ALL}")
+else:
+    # Print row numbers and labels
+    print(f"A   B   C")
 
-    # Print each row of the board with colors
-    for row in board:
-        print(f" {Fore.YELLOW} ", end="")  # Use yellow for starting space
-        for cell in row:
-            if cell == 'X':
-                print(f"{Fore.RED}{cell}{Style.RESET_ALL} | ", end="")
-            elif cell == 'O':
-                print(f"{Fore.BLUE}{cell}{Style.RESET_ALL} | ", end="")
-            else:
-                print(f"{Fore.WHITE}{cell}{Style.RESET_ALL} | ", end="")
-                print(f"{Style.RESET_ALL}")  # Reset formatting and add newline
-
-    # Print the bottom border
-    print(f"{Fore.YELLOW}---+---+---{Style.RESET_ALL}")
+    # Print each row with square brackets and colors
+    for i, row in enumerate(board, start=1):
+        print(f"{i}  ", end="")  # Add row number with a space
+    for cell in row:
+        if cell == 'X':
+            print(f"{Fore.RED}[{cell}]", end="")  # Red for X
+        elif cell == 'O':
+            print(f"{Fore.BLUE}[{cell}]", end="")  # Blue for O
+        else:
+            print(f"[ {cell} ]", end="")  # White for empty cells
+            print(f"{Style.RESET_ALL}")  # Reset formatting and add newline
 
 
 def choose_and_update_cell(board, player):
@@ -61,7 +60,6 @@ def computer_move(board):
 
 def main():
     """Main game loop."""
-    board = [[' ', ' ', ' '] for _ in range(3)]  # Create empty board
     current_player = 'X'  # Start with player X
 
     print(f"""
@@ -69,27 +67,21 @@ def main():
 
 Rules:
 - Players take turns placing their mark (X or O) on the board.
-- The board is represented by letters (A-C) for columns and numbers (1-3) for rows.
-- Input your letter then your number (e.g., A1) in order to place your mark.
+- The board is represented by letters (A-C) for columns 
+and numbers (1-3) for rows.
+- Input your letter then your number (e.g., A1) 
+in order to place your mark.
 """)
     
     while True:
-        #display_board(board)
-        for row in board:
-            print(row)
-        # Player's turn
-        if current_player == 'X':
-            choose_and_update_cell(board, current_player)
+        display_board(board)  # calling the boardfunction
 
-        # Computer's turn
-        else:
-            print(f"Computers's turn.")
-            row, col = computer_move(board)
-            board[row][col] = current_player
+    # Player's turn
+    if current_player == 'X':
+        choose_and_update_cell(board, current_player)  # Pass the board
 
-        # Switch player for next turn
-        current_player = 'O' if current_player == 'X' else 'X'
-
-
-if __name__ == "__main__":
-    main()
+    # Computer's turn
+    else:
+        print(f"Computer's turn:")
+        row, col = computer_move(board)  # Pass the board
+        board[row][col] = current_player 
