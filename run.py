@@ -2,18 +2,33 @@ import random
 from colorama import Fore, Back, Style
 
 def display_board(board):
-    """Displays the current state of the game board."""
-    print("   | A | B | C ")
-    print("---+---+---")
-    #for row in board:
-    #    print(f" {row+1} | {' | '.join(row)} ")
-    print("---+---+---")
+    if board is None:  # Check if board is defined
+        print(f"{Fore.LIGHTBLUE}Game not started yet. Please start the game first.{Style.RESET_ALL}")
+    else:
+        # Print the top border in yellow
+        print(f"{Fore.YELLOW}   | A | B | C ")
+        print(f"{Fore.YELLOW}---+---+---")
+
+    # Print each row of the board with colors
+    for row in board:
+        print(f" {Fore.YELLOW} ", end="")  # Use yellow for starting space
+        for cell in row:
+            if cell == 'X':
+                print(f"{Fore.RED}{cell}{Style.RESET_ALL} | ", end="")
+            elif cell == 'O':
+                print(f"{Fore.BLUE}{cell}{Style.RESET_ALL} | ", end="")
+            else:
+                print(f"{Fore.WHITE}{cell}{Style.RESET_ALL} | ", end="")
+                print(f"{Style.RESET_ALL}")  # Reset formatting and add newline
+
+    # Print the bottom border
+    print(f"{Fore.YELLOW}---+---+---{Style.RESET_ALL}")
 
 
 def choose_and_update_cell(board, player):
     """Prompts the player to choose a cell and updates the board."""
     while True:
-        cell = input(f"Player {player}'s turn (e.g., A1): ").strip().lower()
+        cell = input(f"Player's turn: ").strip().lower()
         if len(cell) == 2 and cell[0] in 'abc' and cell[1] in '123':
             row = int(cell[1]) - 1
             col = ord(cell[0]) - ord('a')
@@ -50,23 +65,25 @@ def main():
     current_player = 'X'  # Start with player X
 
     print(f"""
-                                                Welcome to 3 in a Row!
-    """)
-    print("Rules:")
-    print("- Players take turns placing their mark (X or O) on the board.")
-    print("- The board is represented by letters (A-C) for columns and numbers (1-3) for rows.")
+                            Welcome to 3 in a Row!
+
+Rules:
+- Players take turns placing their mark (X or O) on the board.
+- The board is represented by letters (A-C) for columns and numbers (1-3) for rows.
+- Input your letter then your number (e.g., A1) in order to place your mark.
+""")
     
     while True:
         #display_board(board)
-        print(board)
+        for row in board:
+            print(row)
         # Player's turn
         if current_player == 'X':
-            print(f"Player {current_player}'s turn.")
             choose_and_update_cell(board, current_player)
 
         # Computer's turn
         else:
-            print(f"Player {current_player}'s turn.")
+            print(f"Computers's turn.")
             row, col = computer_move(board)
             board[row][col] = current_player
 
