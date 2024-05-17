@@ -68,8 +68,8 @@ def check_winner(board, player):
             return True
 
     # Check diagonals
-    if all(board[i][i] == player for i in range(3)) or
-    all(board[i][2-i] == player for i in range(3)):
+    if (all(board[i][i] == player for i in range(3)) or
+            all(board[i][2-i] == player for i in range(3))):
         return True
 
     return False
@@ -81,9 +81,17 @@ def update_the_board():
 
 
 def go_back_start():
-    print("Lets play again!")
-    update_the_board()
-    main_logic()
+    while True:
+        user_choice = input("Wanna play again? (y/n): ").lower().strip()
+        if user_choice == 'y':
+            update_the_board()  # Reset the game board
+            main_logic()        # Start the game logic loop
+            return True          # Indicate the user wants to continue
+        elif user_choice == 'n':
+            print("Thanks for playing!")
+            return False         # Indicate the user wants to quit
+        else:
+            print("Invalid input. Please enter 'y' or 'n'.")
 
 
 def welcome_message():
