@@ -56,6 +56,25 @@ def computer_move(board):
             return row, col
 
 
+def check_winner(board, player):
+    """Checks if the specified player has won the game."""
+    # Check rows
+    for row in board:
+        if all(cell == player for cell in row):
+            return True
+    
+    # Check columns
+    for col in range(3):
+        if all(board[row][col] == player for row in range(3)):
+            return True
+
+    # Check diagonals
+    if all(board[i][i] == player for i in range(3)) or all(board[i][2-i] == player for i in range(3)):
+        return True
+
+    return False
+
+
 def main():
     """Main game loop."""
     current_player = 'X'  # Start with player 
@@ -81,6 +100,21 @@ in order to place your mark.
             print(f"Computer's turn:")
             row, col = computer_move(board)  # Pass the board
             board[row][col] = current_player 
+        
+        # Check for a winner
+        if check_winner(board, current_player):
+            display_board(board)
+            if current_player == 'X':
+                print(f"{Fore.GREEN}You Win!{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}Computer Wins!{Style.RESET_ALL}")
+            break
+        
+        # Check for a draw
+        if all(cell != ' ' for row in board for cell in row):
+            display_board(board)
+            print(f"{Fore.YELLOW}It's a draw!{Style.RESET_ALL}")
+            break
         
         # Switch player
         current_player = 'O' if current_player == 'X' else 'X'
