@@ -3,26 +3,22 @@ import colorama
 from colorama import Fore, Back, Style
 
 
+board = [[' ' for _ in range(3)] for _ in range(3)]
+
+
 def display_board(board):
     """Prints the board with row numbers and labels."""
-if board is None:
-    print(f"{Fore.LIGHTBLUE}Game not started yet. Please start the game first.{Style.RESET_ALL}")
-else:
-    # Print row numbers and labels
-    print(f"A   B   C")
-
-    # Print each row with square brackets and colors
+    print("    A   B   C")
     for i, row in enumerate(board, start=1):
         print(f"{i}  ", end="")  # Add row number with a space
-    for cell in row:
-        if cell == 'X':
-            print(f"{Fore.RED}[{cell}]", end="")  # Red for X
-        elif cell == 'O':
-            print(f"{Fore.BLUE}[{cell}]", end="")  # Blue for O
-        else:
-            print(f"[ {cell} ]", end="")  # White for empty cells
-            print(f"{Style.RESET_ALL}")  # Reset formatting and add newline
-
+        for cell in row:
+            if cell == 'X':
+                print(f"{Fore.RED}[{cell}{Style.RESET_ALL}]", end=" ")  # Red for X
+            elif cell == 'O':
+                print(f"{Fore.BLUE}[{cell}{Style.RESET_ALL}]", end=" ")  # Blue for O
+            else:
+                print(f"[ ]", end=" ")  # Default for empty cells
+        print(f"{Style.RESET_ALL}")  # Reset formatting and add newline
 
 def choose_and_update_cell(board, player):
     """Prompts the player to choose a cell and updates the board."""
@@ -35,7 +31,9 @@ def choose_and_update_cell(board, player):
                 board[row][col] = player
                 return  # Exit the loop after successful placement
             else:
-                print("Cell already occupied. Please choose another one.")
+                print(f"""{Fore.RED}
+                Cell already occupied. Please choose another one.
+                {Style.RESET_ALL}""")
         else:
             print(
                 f"""{Fore.RED} 
@@ -60,11 +58,9 @@ def computer_move(board):
 
 def main():
     """Main game loop."""
-    current_player = 'X'  # Start with player X
-
+    current_player = 'X'  # Start with player 
     print(f"""
                             Welcome to 3 in a Row!
-
 Rules:
 - Players take turns placing their mark (X or O) on the board.
 - The board is represented by letters (A-C) for columns 
@@ -76,12 +72,19 @@ in order to place your mark.
     while True:
         display_board(board)  # calling the boardfunction
 
-    # Player's turn
-    if current_player == 'X':
-        choose_and_update_cell(board, current_player)  # Pass the board
+        # Player's turn
+        if current_player == 'X':
+            choose_and_update_cell(board, current_player)  # Pass the board
 
-    # Computer's turn
-    else:
-        print(f"Computer's turn:")
-        row, col = computer_move(board)  # Pass the board
-        board[row][col] = current_player 
+        # Computer's turn
+        else:
+            print(f"Computer's turn:")
+            row, col = computer_move(board)  # Pass the board
+            board[row][col] = current_player 
+        
+        # Switch player
+        current_player = 'O' if current_player == 'X' else 'X'
+
+
+if __name__ == "__main__":
+    main()
