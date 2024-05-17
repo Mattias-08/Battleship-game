@@ -12,12 +12,13 @@ def display_board(board):
         print(f"{i}  ", end="")  # Add row number with a space
         for cell in row:
             if cell == 'X':
-                print(f"[{Fore.RED}{cell}{Style.RESET_ALL}]", end=" ")  # Red for X
+                print(f"[{Fore.RED}{cell}{Style.RESET_ALL}]", end=" ")
             elif cell == 'O':
-                print(f"[{Fore.BLUE}{cell}{Style.RESET_ALL}]", end=" ")  # Blue for O
+                print(f"[{Fore.BLUE}{cell}{Style.RESET_ALL}]", end=" ")
             else:
                 print(f"[ ]", end=" ")  # Default for empty cells
         print(f"{Style.RESET_ALL}")  # Reset formatting and add newline
+
 
 def choose_and_update_cell(board, player):
     """Prompts the player to choose a cell and updates the board."""
@@ -35,7 +36,7 @@ def choose_and_update_cell(board, player):
                 {Style.RESET_ALL}""")
         else:
             print(
-                f"""{Fore.RED} 
+                f"""{Fore.RED}
 Invalid input. Please enter a letter (A-C) and a number (1-3).
 {Style.RESET_ALL}"""
             )
@@ -61,17 +62,22 @@ def check_winner(board, player):
     for row in board:
         if all(cell == player for cell in row):
             return True
-    
     # Check columns
     for col in range(3):
         if all(board[row][col] == player for row in range(3)):
             return True
 
     # Check diagonals
-    if all(board[i][i] == player for i in range(3)) or all(board[i][2-i] == player for i in range(3)):
+    if all(board[i][i] == player for i in range(3)) or
+    all(board[i][2-i] == player for i in range(3)):
         return True
 
     return False
+
+
+def update_the_board():
+    global board
+    board = [[' ' for _ in range(3)] for _ in range(3)]
 
 
 def go_back_start():
@@ -79,35 +85,35 @@ def go_back_start():
     update_the_board()
     main_logic()
 
+
 def welcome_message():
     print(f"""
                             Welcome to 3 in a Row!
 Rules:
 - Players take turns placing their mark (X or O) on the board.
-- The board is represented by letters (A-C) for columns 
+- The board is represented by letters (A-C) for columns
 and numbers (1-3) for rows.
-- Input your letter then your number (e.g., A1) 
+- Input your letter then your number (e.g., A1)
 in order to place your mark.
 """)
 
 
 def main_logic():
-    current_player = 'X'  # Start with player 
-    
+    current_player = 'X'  # Start with player
+
     while True:
         display_board(board)  # calling the boardfunction
 
         # Player's turn
         if current_player == 'X':
-            print("debug current_player")
             choose_and_update_cell(board, current_player)  # Pass the board
 
         # Computer's turn
         elif current_player == 'O':
             print(f"Computer's turn:")
             row, col = computer_move(board)  # Pass the board
-            board[row][col] = current_player 
-        
+            board[row][col] = current_player
+
         # Check for a winner
         if check_winner(board, current_player):
             display_board(board)
@@ -117,21 +123,21 @@ def main_logic():
                 print(f"{Fore.RED}Computer Wins!{Style.RESET_ALL}")
             go_back_start()
             break
-        
+
         # Check for a draw
         if all(cell != ' ' for row in board for cell in row):
             display_board(board)
             print(f"{Fore.YELLOW}It's a draw!{Style.RESET_ALL}")
             go_back_start()
-        
+
         # Switch player
         current_player = 'O' if current_player == 'X' else 'X'
+
 
 def main():
     """Main game loop."""
     welcome_message()
     main_logic()
-    
 
 
 if __name__ == "__main__":
