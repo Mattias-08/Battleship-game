@@ -23,13 +23,50 @@ to the limitations.
 
 # Features
 
+- **Loading the page**
+
+  The terminal gets loaded and the game is displayed with rules and board, waiting for the users input
+
+  ![loading Program](documentation/Start_game.png)
+
+  - **Playing the game**
+
+  The user gives the input and the board gets updated 
+  
+  After that the computers move gets displayed by updating the board, and the request for user input gets repeated
+
+  ![loading Program](documentation/Playing.png)
+  
+
+- **End of the game**
+
+  When all the boards are filled or a player gets three in a row the winner gets declared.
+
+  Then the user gets prompted to input y or n depending on if he wants to play another game or not.
+
+  Depending on the answer the game restarts if y, if the input message is n then a thank you message is displayed and
+
+  the program ends.
+
+  ![loading Program](documentation/Game_end.png)
+  ![loading Program](documentation/End_terminal.png)
+  
+
+  - **Error handling**
+
+  There is some errorhandling for incorrect inputs. Examples of this will be displayed below
+
+  ![loading Program](documentation/Invalid_input.png)
+
 
 
 ---
 
 # Flowchart
 
+The flowchart represents the logic of the application:
 
+  ![Flash Card Page](documentation/image_flowchart_three_in_row.png)
 
 ---
 
@@ -55,26 +92,72 @@ to the limitations.
 
 #### Other tools:
 
-- [VSCode](https://code.visualstudio.com/) was used as the main tool to write and edit code.
 - [Git](https://git-scm.com/) was used for the version control of the website.
 - [GitHub](https://github.com/) was used to host the code of the website.
 - [GIMP](https://www.gimp.org/) was used to make and resize images for the README file.
-- [Draw.io](https://www.lucidchart.com/) was used to make a flowchart for the README file.
+
 
 ---
 
 
 ## Bugs
 
+All the bugs are resolved and the program runs well
 
 ## Testing
 
-Please refer to the [TESTING.md](TESTING.md) file for all test related documentation.
+## Compatibility
+
+In order to confirm the correct functionality, responsiveness, and appearance:
+
++ The website was tested on the following browsers: Chrome, Firefox, Brave.
+
+No issues was found after the manual testing.
+
+## Manual testing
+
+Manual testing have been done on all the features personally and by a friend to make that there are no interactice bugs.
+
+The testing has also been done on a tablet and phone to ensure that the website works and looks like it should on all normal screensizes.
+
+---
+## Validator testing
+
+[online validation tool](http://pep8online.com/) was used to ensure didnt have any issues related to the styling or syntax.
+
+The testing was done manually by coping in the code ![Python Validator](documentation/python%20linter.png)
 
 ---
 ## Deployment
+- The program was deployed to [Heroku](https://dashboard.heroku.com).
+- The program can be reached by the [link](https://three-in-a-row-21c4d9510ed4.herokuapp.com/)
 
+### To deploy the project as an application that can be **run locally**:
 
+*Note:*
+  1. Python is required to be installed on your local PC on order to run this program:
+  - `sudo apt install python3`
+
+  1. Pip installed is also requirede to allow the installation of modules the application uses.
+  - `sudo apt install python3-pip`
+
+Create a local copy of the GitHub repository by following one of the two processes below:
+
+- Download ZIP file:
+  1. Go to the [GitHub Repo page](https://github.com/Mattias-08/three-in-a-row).
+  1. Click the Code button and download the ZIP file containing the project.
+  1. Extract the ZIP file to a location on your PC.
+
+- Clone the repository:
+  1. Open a folder on your computer with the terminal.
+  1. Run the following command
+  - `git clone https://github.com/Mattias-08/three-in-a-row`
+
+- Alternatively, Gitpod can be used by click below to create your own workspace using this repository.
+
+  [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://github.com/Mattias-08/three-in-a-row)
+
+   
 ---
 ## Credits
 
@@ -86,24 +169,3 @@ Please refer to the [TESTING.md](TESTING.md) file for all test related documenta
 [Juliia Konn](https://github.com/IuliiaKonovalova)
 
 I am extremely thankful to my mentor Juliia Konn for her advice and support.
-
-
-
-
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-
